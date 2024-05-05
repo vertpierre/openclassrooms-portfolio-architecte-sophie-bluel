@@ -45,10 +45,12 @@ function createGallery(galleryWorks) {
     gallery.innerHTML = "";
     galleryWorks.forEach((work) => {
         const galleryContent = `
-                <figure>
-                    <img src="${work.imageUrl}" alt="${work.title}">
-                    <figcaption>${work.title}</figcaption>
-                </figure>
+                <article>
+                    <figure>
+                        <img src="${work.imageUrl}" alt="${work.title}">
+                        <figcaption>${work.title}</figcaption>
+                    </figure>
+                </article>
             `;
         gallery.insertAdjacentHTML("beforeend", galleryContent);
     });
@@ -66,7 +68,7 @@ function createCategories(categoryElements) {
         const kebabCasedCategoryName = category.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
         const checkedAttribute = getCheckedAttribute(category.id);
         const portfolioCategories = `
-        <input type="radio" name="category" id="${kebabCasedCategoryName}" data-id="${category.id}" ${checkedAttribute}>
+        <input class="button-input" type="radio" name="category" id="${kebabCasedCategoryName}" data-id="${category.id}" ${checkedAttribute}>
         <label class="button-input" for="${kebabCasedCategoryName}">${category.name}</label>
         `;
         portfolioCategoriesForm.insertAdjacentHTML("beforeend", portfolioCategories);
