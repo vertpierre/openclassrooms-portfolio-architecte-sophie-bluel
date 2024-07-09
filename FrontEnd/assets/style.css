@@ -20,7 +20,8 @@ body {
     flex-direction: column;
     min-height: 100vh;
     align-items: center;
-    max-width: 1140px;
+    max-width: 1100px;
+    padding-inline: 20px;
     overflow-x: hidden;
     scroll-behavior: smooth;
 }
@@ -31,7 +32,8 @@ footer {
 }
 
 main {
-    margin-inline: 95px;
+    max-width: 950px;
+    padding-inline: 40px;
     flex: 1;
 }
 
@@ -47,7 +49,8 @@ h1 a {
     flex-direction: column;
 }
 
-span {
+header span,
+.error-message {
     font-family: "Work Sans";
     font-size: 10px;
     font-weight: 400;
@@ -102,12 +105,18 @@ hr {
     width: 100%;
 }
 
-.submit-form input:not([type="submit"]) {
+.submit-form input:not([type="submit"]),
+.submit-form select {
     height: 50px;
     font-size: 1.2em;
     padding-left: 1em;
     border: none;
     box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+select {
+    appearance: none;
+    background-color: white;
 }
 
 .submit-form label {
@@ -152,73 +161,41 @@ hr {
     color: white;
 }
 
+.button-input:disabled {
+    background-color: #b3b3b3 !important;
+    border-color: #b3b3b3 !important;
+    pointer-events: none;
+}
+
 /****** button link ******/
 
 .button-link {
     text-decoration: underline;
 }
 
-/****** modal link ******/
+/****** error message ******/
 
-.modal {
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 2;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.3);
-}
-
-.modal-wrapper {
-    background-color: white;
-    width: 630px;
-    max-width: calc(100vw - 20px);
-    max-height: calc(100vh - 20px);
-    height: fit-content;
-    border-radius: 10px;
-    padding: 36px;
-}
-
-.modal-header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-}
-
-.modal-content {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-inline: 70px;
-    padding-block: 20px;
-}
-
-.modal-form {
-    width: 100%;
-}
-
-.modal-form p {
-    text-align: center;
-}
-
-.modal-form hr {
-    margin-top: 36px;
-    margin-bottom: 36px;
-    width: 100%;
-}
-
-.modal-form .button-input {
+.error-message {
+    font-size: 11px;
+    color: red;
+    padding-top: 0.5rem;
+    width: fit-content;
+    padding-inline: 0.5rem;
     margin-inline: auto;
 }
 
-.modal-form .button-input {
-    background-color: #1d6154;
+/****** banner ******/
+
+.edit-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    width: 100vw;
+    gap: 10px;
+    background-color: #000;
     color: white;
+    font-size: 16px;
 }
 
 /****** header ******/
@@ -236,6 +213,7 @@ nav ul {
     list-style-type: none;
 }
 
+select,
 nav li {
     cursor: pointer;
 }
@@ -280,20 +258,39 @@ nav img {
     align-items: center;
 }
 
+.gallery-title {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+#portfolio .edit-button {
+    display: flex;
+    align-items: flex-end;
+    line-height: 0.9em;
+    gap: 10px;
+}
+
 #portfolio form {
-    margin-block: 50px;
     display: flex;
     gap: 10px;
 }
 
+/* hide radios and create a focus for radio label categories */
+
 input[type="radio"] {
     width: 0;
     height: 0;
+    opacity: 0;
+    pointer-events: none;
 }
 
 input[type="radio"]:focus-visible + .button-input {
     outline: 2px solid black;
 }
+
+/****** portfolio gallery ******/
 
 .gallery {
     width: 100%;
@@ -301,10 +298,212 @@ input[type="radio"]:focus-visible + .button-input {
     grid-template-columns: repeat(3, 1fr);
     grid-column-gap: 20px;
     grid-row-gap: 20px;
+    margin-block: 50px;
 }
 
 .gallery img {
     width: 100%;
+}
+
+.modify-button {
+    display: inline;
+}
+
+/****** portfolio edit modal ******/
+
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modal-wrapper {
+    background-color: white;
+    width: 630px;
+    max-width: calc(100vw - 20px);
+    max-height: calc(100vh - 20px);
+    height: fit-content;
+    border-radius: 10px;
+    padding: 30px 36px;
+}
+
+.modal-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-inline: 70px;
+    padding-block: 15px;
+}
+
+.modal-form {
+    width: 100%;
+}
+
+.modal-form p {
+    text-align: center;
+}
+
+.modal-form hr {
+    margin-top: 36px;
+    margin-bottom: 36px;
+    width: 100%;
+}
+
+.modal-form .button-input {
+    width: 230px;
+}
+
+.modal-form .button-input {
+    margin-inline: auto;
+}
+
+.modal-form .button-input {
+    background-color: #1d6154;
+    color: white;
+}
+
+.fa-pen-to-square {
+    font-size: 16px;
+}
+
+.fa-arrow-left,
+.fa-xmark {
+    font-size: 20px;
+}
+
+.inner-form-modal {
+    margin-block: 50px;
+}
+
+/****** portfolio edit main-modal ******/
+
+.modal-content .delete-works {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    row-gap: 30px;
+    column-gap: 10px;
+    padding-block: 50px;
+}
+
+.modal-content figure {
+    position: relative;
+}
+
+.modal-content .delete-icon {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+    width: 17px;
+    height: 17px;
+    border-radius: 2px;
+}
+
+.modal-content .delete-icon {
+    color: white;
+    font-size: 10px;
+}
+
+/****** portfolio edit sub-modal ******/
+
+.sub-modal {
+    display: none;
+}
+
+.add-works {
+    display: flex;
+    flex-direction: column;
+    padding-top: 30px;
+    padding-bottom: 16px;
+}
+
+.wrapper-image-selector {
+    position: relative;
+    width: 100%;
+    min-height: 192px;
+    padding-block: 20px;
+    background-color: #e8f1f6;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.wrapper-image-selector .fa-image {
+    font-size: 76px;
+    color: #b9c5cc;
+}
+
+.wrapper-image-selector label {
+    margin-block: 10px;
+    padding-block: 10px;
+    padding-inline: 35px;
+    background-color: #cbd6dc;
+    font-weight: 600;
+    color: #306685;
+    border-radius: 30px;
+    max-width: 320px;
+    text-align: center;
+}
+
+.wrapper-image-selector span {
+    font-size: 10px;
+}
+
+#image-selector-input {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: none;
+    padding: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+#image-selector-input:focus-visible + label {
+    outline: 2px solid black;
+}
+
+.image-preview {
+    display: none;
+    position: absolute;
+    height: 100%;
+    top: 0;
+}
+
+.wrapper-category-selector {
+    position: relative;
+}
+
+.wrapper-category-selector #category-select {
+    width: 100%;
+}
+
+.wrapper-category-selector .fa-angle-down {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    pointer-events: none;
+    color: #b3b3b3;
 }
 
 /****** footer ******/
@@ -319,4 +518,16 @@ footer {
 footer nav ul {
     display: flex;
     justify-content: flex-end;
+}
+
+@media (max-width: 900px) {
+    #introduction {
+        grid-template-columns: auto;
+        grid-template-rows: auto;
+        gap: 20px;
+    }
+
+    #introduction article {
+        max-width: 500px;
+    }
 }
