@@ -310,9 +310,13 @@ async function createWork(formData) {
  * to delete the corresponding work from the gallery.
  */ 
 function setupModalDeleteEvents() {
-    const deleteButtons = document.querySelectorAll(".delete-icon");
-    deleteButtons.forEach((button) => {
-        button.addEventListener("click", () => deleteWork(button.dataset.id));
+    const deleteWorksContainer = document.querySelector(".delete-works");
+    deleteWorksContainer.addEventListener("click", function(event) {
+        const deleteButton = event.target.closest(".delete-icon");
+        if (deleteButton) {
+            const workId = deleteButton.dataset.id;
+            deleteWork(workId);
+        }
     });
 }
 

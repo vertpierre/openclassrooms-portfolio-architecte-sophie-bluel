@@ -29,7 +29,7 @@ function createCategories(categories) {
  * Determines the checked attribute for a category input based on saved state.
  */
 function getCategoryCheckedAttribute(categoryId) {
-    const savedCategoryId = localStorage.getItem("selectedCategoryId");
+    let savedCategoryId = localStorage.getItem("selectedCategoryId");
     if (!savedCategoryId) {
         savedCategoryId = "0";
         localStorage.setItem("selectedCategoryId", savedCategoryId);
@@ -72,7 +72,7 @@ function createGallery(works) {
  * Filters the works based on the selected category and creates the gallery accordingly.
  */
 async function createFilteredGallery(works, categoryId) {
-    if (categoryId === "0") {
+    if (categoryId === null || categoryId === "0") {
         createGallery(works);
     } else {
         const filteredWorks = works.filter((work) => work.category.id.toString() === categoryId);
